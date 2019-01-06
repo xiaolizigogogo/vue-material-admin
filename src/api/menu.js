@@ -38,7 +38,17 @@ const Menu =  [
       { name: 'list', title: 'List', component: 'components/widget-list' },
       // { name: 'post', title: 'Post', component: 'components/widget-post' },
     ]
-  },  
+  },
+  {
+    title: 'Shop',
+    group: 'shop',
+    component: 'shop',
+    icon: 'widgets',
+    items: [
+      { name: '会员管理', title: '会员管理', component: 'components/shop-list' },
+      // { name: 'post', title: 'Post', component: 'components/widget-post' },
+    ]
+  },    
   { header: 'UI Elements' },
   {
     title: 'General',

@@ -594,4 +594,14 @@ export default [
       `@/pages/widgets/List.vue`
     )
   },
+  {
+    path: '/shop/list',
+    meta: { breadcrumb: true },
+    name: 'components/shop-list',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/shop/Tables.vue`
+    )
+  },
 ];
