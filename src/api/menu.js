@@ -48,7 +48,7 @@ const Menu =  [
       { name: '会员管理', title: '会员管理', component: 'components/shop-list' },
       // { name: 'post', title: 'Post', component: 'components/widget-post' },
     ]
-  },    
+  },  
   { header: 'UI Elements' },
   {
     title: 'General',

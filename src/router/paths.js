@@ -1,62 +1,62 @@
-export default [
-
-  {
-    path: '*',
-    meta: {
-      public: true,
-    },
-    redirect: {
-      path: '/404'
-    }
-  },  
-  {
-    path: '/404',
-    meta: {
-      public: true,
-    },
-    name: 'NotFound',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      /* webpackMode: "lazy-once" */
-      `@/pages/NotFound.vue`
-    )
+import App from '@/App.vue';
+export const page = {
+  path: '*',
+  meta: {
+    public: true,
   },
-  {
-    path: '/403',
-    meta: {
-      public: true,
-    },
-    name: 'AccessDenied',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      /* webpackMode: "lazy-once" */
-      `@/pages/Deny.vue`
-    )
+  redirect: {
+    path: '/404'
+  }
+};
+export const page404 = {
+  path: '/404',
+  meta: {
+    public: true,
   },
-  {
-    path: '/500',
-    meta: {
-      public: true,
-    },
-    name: 'ServerError',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      /* webpackMode: "lazy-once" */
-      `@/pages/Error.vue`
-    )
+  name: 'NotFound',
+  component: () => import(
+    /* webpackChunkName: "routes" */
+    /* webpackMode: "lazy-once" */
+    `@/pages/NotFound.vue`
+  )
+};
+export const page403 = {
+  path: '/403',
+  meta: {
+    public: true,
   },
-  {
-    path: '/login',
-    meta: {
-      public: true,
-    },
-    name: 'Login',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      /* webpackMode: "lazy-once" */
-      `@/pages/Login.vue`
-    )
+  name: 'AccessDenied',
+  component: () => import(
+    /* webpackChunkName: "routes" */
+    /* webpackMode: "lazy-once" */
+    `@/pages/Deny.vue`
+  )
+};
+export const page500 = {
+  path: '/500',
+  meta: {
+    public: true,
   },
+  name: 'ServerError',
+  component: () => import(
+    /* webpackChunkName: "routes" */
+    /* webpackMode: "lazy-once" */
+    `@/pages/Error.vue`
+  )
+};
+export const loginRouter = {
+  path: '/login',
+  meta: {
+    public: true,
+  },
+  name: 'Login',
+  component: () => import(
+    /* webpackChunkName: "routes" */
+    /* webpackMode: "lazy-once" */
+    `@/pages/Login.vue`
+  )
+};
+export const appRouter = [
   {
     path: '/',
     meta: { },
@@ -604,4 +604,21 @@ export default [
       `@/pages/shop/Tables.vue`
     )
   },
+];
+export const otherRouter = {
+  path: '/',
+  name: 'otherRouter',
+  redirect: '/home',
+  component: App,
+  children: [],
+};
+
+export const routers = [
+  loginRouter,
+  otherRouter,
+  ...appRouter,
+  page500,
+  page403,
+  page404,
+  page,
 ];

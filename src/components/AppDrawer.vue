@@ -11,7 +11,7 @@
     <v-toolbar color="primary darken-1" dark>
       <img v-bind:src="computeLogo" height="36" alt="Vue Material Admin Template">
       <v-toolbar-title class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">Vue Material</span>
+        <span class="hidden-sm-and-down">New Faces</span>
       </v-toolbar-title>        
     </v-toolbar>
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
@@ -103,12 +103,17 @@ export default {
 
     sideToolbarColor () {
       return this.$vuetify.options.extra.sideNav;
-    }    
+    },
+    menuList () {
+      return this.$store.state.app.menuList;
+    }   
   },
   created () {
     window.getApp.$on('APP_DRAWER_TOGGLED', () => {
       this.drawer = (!this.drawer);
     });
+    console.log(this.menus);
+    console.log(this.menuList);
   },
   
 
