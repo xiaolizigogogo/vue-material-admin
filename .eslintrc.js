@@ -35,6 +35,7 @@ module.exports = {
         'no-void': 0,
         'no-unused-vars': 0,
         'no-param-reassign': 0,
+        "vue/no-parsing-error": [2, { "x-invalid-end-tag": false }],
         "space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "always",

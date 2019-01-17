@@ -42,7 +42,7 @@
           </v-avatar>
         </v-btn>
         <v-list class="pa-0">
-          <v-list-tile v-for="(item,index) in items" :to="!item.href ? { name: item.name } : null" :href="item.href" @click="item.click" ripple="ripple" :disabled="item.disabled" :target="item.target" rel="noopener" :key="index">
+          <v-list-tile v-for="(item,index) in items" :to="!item.href ? { name: item.name } : null" :href="item.href" @click="handleLogout" ripple="ripple" :disabled="item.disabled" :target="item.target" rel="noopener" :key="index">
             <v-list-tile-action v-if="item.icon">
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -85,7 +85,6 @@ export default {
         href: '#',
         title: 'Logout',
         click: (e) => {
-          window.getApp.$emit('APP_LOGOUT');
         }
       }
     ],
@@ -101,6 +100,12 @@ export default {
     },
     handleFullScreen () {
       Util.toggleFullScreen();
+    },
+    handleLogout (name) {
+      console.log(name);
+      this.$store.commit('logout', this);
+      this.$store.commit('clearOpenedSubmenu');
+      window.getApp.$emit('APP_LOGOUT');
     }
   }
 };

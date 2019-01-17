@@ -39,15 +39,21 @@ const app = {
   mutations: {
     // 动态添加主界面路由，需要缓存
     updateAppRouter(state, routes) {
+      console.log(routes);
+      console.log(router);
       state.routers.push(...routes);
       router.addRoutes(routes);
     },
     // 动态添加全局路由，不需要缓存
     updateDefaultRouter(state, routes) {
+      console.log(routes);
       router.addRoutes(routes);
+
     },
     setTagsList(state, list) {
+      console.log(list);
       state.tagsList.push(...list);
+      console.log(router);
     },
     updateMenulist(state, routes) {
       state.menuList = routes;

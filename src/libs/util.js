@@ -1,8 +1,9 @@
 /* eslint-disable*/
+const _import = require('../router/_import_' + process.env.NODE_ENV)
 import axios from "axios";
 import lazyLoading from "./lazyLoading.js";
 import Cookies from "js-cookie";
-
+import {router} from '@/router/index'
 let util = {};
 util.title = function(title) {
   title = title || "后台管理";
@@ -257,16 +258,8 @@ util.initRouter = function(vm) {
 
   // 404路由需要和动态路由一起注入
   const otherRouter = [
-    {
-      path: "/*",
-      name: "error-404",
-      meta: {
-        title: "404-页面不存在"
-      },
-      component: "error-page/404"
-    }
-  ];
 
+  ];
   // 判断用户是否登录
   let userInfo = Cookies.get("userInfo");
   if (userInfo === null || userInfo === "" || userInfo === undefined) {
@@ -313,8 +306,8 @@ util.initRouterNode = function(routers, data) {
   for (var item of data) {
     let menu = Object.assign({}, item);
     // menu.component = import(`@/views/${menu.component}.vue`);
-    menu.component = lazyLoading(menu.component);
-
+    // menu.component = lazyLoading(menu.component);
+    menu.component = _import(menu.component);
     if (item.children && item.children.length > 0) {
       menu.children = [];
       util.initRouterNode(menu.children, item.children);
@@ -325,9 +318,9 @@ util.initRouterNode = function(routers, data) {
     meta.buttonTypes = menu.buttonTypes ? menu.buttonTypes : null;
     meta.title = menu.title ? menu.title : null;
     menu.meta = meta;
-
     routers.push(menu);
   }
+  router.addRoutes(routers);
 };
 
 export default util;

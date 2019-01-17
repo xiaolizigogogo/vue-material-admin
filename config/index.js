@@ -11,7 +11,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // mock api server url
+      '/xboot/*': {
+        target: 'http://localhost:8888'  // 请求本地 需要xboot后台项目
+      }
     },
 
     // Various Dev Server settings

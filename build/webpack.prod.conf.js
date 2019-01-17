@@ -14,7 +14,30 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
-
+config.optimization = {
+  splitChunks: {
+  chunks: "initial", // 必须三选一： "initial" | "all"(默认就是all) | "async" 
+  minSize: 0, // 最小尺寸，默认0
+  minChunks: 1, // 最小 chunk ，默认1
+  maxAsyncRequests: 1, // 最大异步请求数， 默认1
+  maxInitialRequests : 1, // 最大初始化请求书，默认1
+  name: function(){}, // 名称，此选项可接收 function
+  cacheGroups:{ // 这里开始设置缓存的 chunks
+      priority: 0, // 缓存组优先级
+      vendor: { // key 为entry中定义的 入口名称
+          chunks: "initial", // 必须三选一： "initial" | "all" | "async"(默认就是异步) 
+          test: /react|lodash/, // 正则规则验证，如果符合就提取 chunk
+          name: "vendor", // 要缓存的 分隔出来的 chunk 名称 
+          minSize: 0,
+          minChunks: 1,
+          enforce: true,
+          maxAsyncRequests: 1, // 最大异步请求数， 默认1
+          maxInitialRequests : 1, // 最大初始化请求书，默认1
+          reuseExistingChunk: true // 可设置是否重用该chunk（查看源码没有发现默认值）
+      }
+  }
+}
+}
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -46,7 +69,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     }),
     // extract css into its own file
     new ExtractTextPlugin({
-      filename: utils.assetsPath('css/[name].[contenthash].css'),
+      filename: utils.assetsPath('css/[name].[hash].css'),
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
@@ -84,34 +107,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     // split vendor js into its own file
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks (module) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        )
-      }
-    }),
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'manifest',
-      minChunks: Infinity
-    }),
-    // This instance extracts shared chunks from code splitted chunks and bundles them
-    // in a separate chunk, similar to the vendor chunk
-    // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
-    }),
+
 
     // copy custom static assets
     new CopyWebpackPlugin([

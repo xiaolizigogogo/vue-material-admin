@@ -47,6 +47,7 @@
 <script>
 /* eslint-disable */
 import { setStore } from "@/util/storage";
+import util from '@/libs/util';
 import Cookies from "js-cookie";
 export default {
   data: () => ({
@@ -100,7 +101,7 @@ export default {
                     setStore("userInfo", res.result);
                     // this.$store.commit("setAvatarPath", res.result.avatar);
                     // 加载菜单
-                    // util.initRouter(this);
+                    util.initRouter(this);
                     this.$router.push({
                       path: "/dashboard"
                     });
